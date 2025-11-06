@@ -17,7 +17,7 @@ import com.example.desenvolvimento_web.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/api/gerenciamento/categorias")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 public class CategoriaController {
 
     private final CategoriaRepository repository;

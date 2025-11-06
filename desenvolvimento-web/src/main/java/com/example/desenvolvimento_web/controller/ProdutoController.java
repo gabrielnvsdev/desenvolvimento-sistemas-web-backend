@@ -17,7 +17,7 @@ import com.example.desenvolvimento_web.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/api/gerenciamento/produtos")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 public class ProdutoController {
 
     private final ProdutoRepository repository;

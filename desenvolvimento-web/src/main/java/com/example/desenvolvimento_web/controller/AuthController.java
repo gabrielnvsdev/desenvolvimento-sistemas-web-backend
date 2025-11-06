@@ -17,7 +17,7 @@ import com.example.desenvolvimento_web.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
