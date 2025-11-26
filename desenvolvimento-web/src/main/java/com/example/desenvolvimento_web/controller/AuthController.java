@@ -14,6 +14,7 @@ import com.example.desenvolvimento_web.dto.LoginDTO;
 import com.example.desenvolvimento_web.dto.UsuarioDTO;
 import com.example.desenvolvimento_web.model.Usuario;
 import com.example.desenvolvimento_web.repository.UsuarioRepository;
+import com.example.desenvolvimento_web.validators.CpfUtils;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,17 +32,26 @@ public class AuthController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos!"));
     }
 
-    @PostMapping("/cadastrar")
+@PostMapping("/cadastrar")
 public ResponseEntity<Object> cadastrar(@RequestBody CadastroDTO dto) {
+
+    if (!CpfUtils.isValidCPF(dto.cpf())) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido!");
+    }
 
     if (usuarioRepository.findByEmail(dto.email()).isPresent()) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail já cadastrado!");
+    }
+
+    if (usuarioRepository.findByCpf(dto.cpf()).isPresent()) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF já cadastrado!");
     }
 
     Usuario novoUsuario = new Usuario();
     novoUsuario.setNome(dto.nome()); 
     novoUsuario.setEmail(dto.email());
     novoUsuario.setSenha(dto.senha());
+    novoUsuario.setCpf(dto.cpf());
 
     usuarioRepository.save(novoUsuario);
 

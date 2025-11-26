@@ -15,20 +15,24 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nome;
+
+    @Column(unique = true, nullable = false, length = 11)
+    private String cpf;
+
     @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String senha;
 
-    private String nome;
-
     public Usuario() {}
     
     public Usuario(String email, String senha, String nome) {
+        this.nome = nome;
+        this.cpf = cpf;
         this.email = email;
         this.senha = senha;
-        this.nome = nome;
     }
 
     public Long getId() {
@@ -62,6 +66,16 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    
 
     
 }
